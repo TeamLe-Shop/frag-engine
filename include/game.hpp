@@ -12,9 +12,10 @@ public:
     Game(Window* w);
     ~Game();
     bool cycle();
-    
-private:
+
     State* state = nullptr;
+
+private:
     Window* window;
 };
 

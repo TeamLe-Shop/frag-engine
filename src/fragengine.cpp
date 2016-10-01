@@ -9,13 +9,15 @@
 
 namespace frag {
 
-void error(std::string format, ...) {
+void log(LogLevel level, std::string format, ...) {
+    if (FRAG_LOGLEVEL.numeric < level.numeric) { return; }
+
     va_list args; // Anyone know of a C++ specific way to do this?
     va_start(args, format);
-    printf("[FragEngine Error]: ");
+    printf("[FragEngine %s]: ", level.name.c_str());
     vprintf(format.data(), args);
     printf("\n");
-    
+
     va_end(args);
 }
 

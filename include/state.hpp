@@ -11,9 +11,9 @@ class State {
 public:
     State(Game game);
     ~State();
-    
-    void render();
-    void input(SDL_Event event);
+
+    virtual void render();
+    virtual void input(SDL_Event event);
 
 private:
     Game* game;
