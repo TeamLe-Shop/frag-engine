@@ -5,7 +5,7 @@
 
 namespace frag {
 
-#define FRAG_LOGLEVEL INFO
+#define FRAG_LOGLEVEL DEVELOPER
 
 struct GLVersion {
     uint8_t major;

@@ -5,5 +5,5 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_library(fragengine SHARED src/fragengine.cpp src/state.cpp src/window.cpp
-                              src/game.cpp)
+                              src/game.cpp src/drawing.cpp)
 target_link_libraries(fragengine SDL2 GL GLU)

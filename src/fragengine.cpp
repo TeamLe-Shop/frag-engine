@@ -10,7 +10,7 @@
 namespace frag {
 
 void log(LogLevel level, std::string format, ...) {
-    if (FRAG_LOGLEVEL.numeric < level.numeric) { return; }
+    if (FRAG_LOGLEVEL.numeric > level.numeric) { return; }
 
     va_list args; // Anyone know of a C++ specific way to do this?
     va_start(args, format);
