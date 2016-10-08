@@ -1,9 +1,19 @@
 cmake_minimum_required(VERSION 3.0)
 project(frag-engine)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # OSX
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++")
+endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+find_package(SDL2 REQUIRED)
+find_package(GL REQUIRED)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include
+                    ${SDL2_INCLUDE_DIR}
+                    ${OPENGL_INCLUDE_DIR})
+
 add_library(fragengine SHARED src/fragengine.cpp src/state.cpp src/window.cpp
                               src/game.cpp src/drawing.cpp)
-target_link_libraries(fragengine SDL2 GL GLU)
+
+target_link_libraries(fragengine ${SDL2_LIBRARY} ${GL_LIBRARIES})
