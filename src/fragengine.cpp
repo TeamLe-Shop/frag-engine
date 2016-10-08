@@ -1,8 +1,8 @@
 #include "fragengine.hpp"
 
 #include <SDL.h>
-#include "gl.h"
-#include "glu.h"
+#include <gl.h>
+#include <glu.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>

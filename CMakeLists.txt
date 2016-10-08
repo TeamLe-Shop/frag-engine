@@ -7,13 +7,18 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # OSX
 endif()
 
 find_package(SDL2 REQUIRED)
-find_package(GL REQUIRED)
+find_package(OpenGL REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include
-                    ${SDL2_INCLUDE_DIR}
-                    ${OPENGL_INCLUDE_DIR})
+                    ${SDL2_INCLUDE_DIR})
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    include_directories(${OPENGL_INCLUDE_DIR}/OpenGL)
+else()
+    include_directories(${OPENGL_INCLUDE_DIR}/GL)
+endif()
 
 add_library(fragengine SHARED src/fragengine.cpp src/state.cpp src/window.cpp
                               src/game.cpp src/drawing.cpp)
 
-target_link_libraries(fragengine ${SDL2_LIBRARY} ${GL_LIBRARIES})
+target_link_libraries(fragengine ${SDL2_LIBRARY} ${OPENGL_LIBRARIES})
