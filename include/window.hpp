@@ -2,7 +2,6 @@
 
 #include <stdint.h>
 #include <SDL.h>
-#include <gl.h>
 
 #include "fragengine.hpp"
 #include <string>

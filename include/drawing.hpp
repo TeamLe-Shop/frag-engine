@@ -1,8 +1,8 @@
 #pragma once
 
-#include <gl.h>
 #include <stddef.h>
 #include <string>
+#include <glew.h>
 
 namespace frag {
 

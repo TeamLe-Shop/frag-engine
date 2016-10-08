@@ -2,7 +2,6 @@
 
 #include "fragengine.hpp"
 
-#include <gl.h>
 #include <SDL.h>
 
 namespace frag {

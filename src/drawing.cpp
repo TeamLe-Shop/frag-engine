@@ -2,7 +2,7 @@
 
 #include "fragengine.hpp"
 
-#include <gl.h>
+#include <glew.h>
 
 #include <fstream>
 
