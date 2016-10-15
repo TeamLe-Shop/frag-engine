@@ -2,6 +2,7 @@
 
 #include "fragengine.hpp"
 
+#include <glew.h>
 #include <SDL.h>
 
 namespace frag {
@@ -17,6 +18,7 @@ Window::Window(std::string title, uint16_t width, uint16_t height, GLVersion gl)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl.major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl.minor);
 
+
     sdlwindow = SDL_CreateWindow(title.data(), SDL_WINDOWPOS_CENTERED,
                                  SDL_WINDOWPOS_CENTERED, width, height,
                                  SDL_WINDOW_OPENGL);
@@ -26,6 +28,9 @@ Window::Window(std::string title, uint16_t width, uint16_t height, GLVersion gl)
     }
 
     glcontext = SDL_GL_CreateContext(sdlwindow);
+
+    glewExperimental = GL_TRUE;
+    glewInit();
 
     log(INFO, "Window created, OpenGL version: %u.%u", gl.major, gl.minor);
 }
