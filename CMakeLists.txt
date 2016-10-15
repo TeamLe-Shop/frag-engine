@@ -3,7 +3,7 @@ project(frag-engine)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # OSX
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g")
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++")
 endif()
 
 find_package(SDL2 REQUIRED)
