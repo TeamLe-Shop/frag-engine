@@ -3,6 +3,7 @@
 #include "fragengine.hpp"
 
 #include <glew.h>
+#include <stdio.h>
 
 #include <fstream>
 
@@ -24,8 +25,6 @@ void VertexArray::delete_buffers()
 
 GLuint VertexArray::upload(GLenum usage)
 {
-    GLuint vbo;
-
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, length * sizeof(GLfloat), vertices, usage);
@@ -72,7 +71,7 @@ GLuint create_shader_from_file(GLenum type, std::string file)
 GLuint create_shader_program(int shader_count, ...)
 {
     int i;
-    GLuint program;
+    GLuint program = glCreateProgram();
     va_list args;
 
     va_start(args, shader_count);
@@ -85,13 +84,8 @@ GLuint create_shader_program(int shader_count, ...)
 
     va_end(args);
 
-#ifdef __APPLE__
-    glBindFragDataLocationEXT(program, 0, "outColor");
-#else
     glBindFragDataLocation(program, 0, "outColor");
-#endif
     glLinkProgram(program);
-
     return program;
 }
 

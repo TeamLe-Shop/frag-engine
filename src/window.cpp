@@ -15,8 +15,11 @@ Window::Window(std::string title, uint16_t width, uint16_t height, GLVersion gl)
         log(SEVERE, "Failed to initialise SDL: %s", SDL_GetError());
     }
 
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
+                        SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl.major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl.minor);
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 4);
 
 
     sdlwindow = SDL_CreateWindow(title.data(), SDL_WINDOWPOS_CENTERED,
@@ -44,10 +47,6 @@ Window::~Window()
 void Window::initGL()
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set background color to black and opaque
-    glClearDepth(1.0f);                   // Set background depth to farthest
-    glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
-    glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
-    glShadeModel(GL_SMOOTH);   // Enable smooth shading
 }
 
 void Window::destroyWindow()
