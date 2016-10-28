@@ -10,13 +10,15 @@ class VertexArray {
 public:
     VertexArray(GLfloat* vertices, size_t length);
 
-    void delete_buffers();
+    void delete_data();
+
+    void set_as_current();
 
     GLuint upload(GLenum usage);
 
 public:
     GLuint vbo;
-
+    GLuint vao;
 private:
     GLfloat* vertices;
     size_t length;

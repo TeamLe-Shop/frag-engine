@@ -26,16 +26,16 @@ public:
     void destroyWindow();
     /* Clear the screen. */
     void clear();
-    /* Draw everything on the window buffer to the screen. */
+    /* Draw the window buffer to the screen. */
     void present();
 
 private:
-    SDL_Window* sdlwindow;
     SDL_GLContext glcontext;
     uint16_t width;
     uint16_t height;
 
 public:
+    SDL_Window* sdlwindow;
     uint8_t fps_max = 60;
 };
 

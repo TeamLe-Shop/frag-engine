@@ -11,17 +11,25 @@ namespace frag {
 
 VertexArray::VertexArray(GLfloat* v, size_t l)
 {
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
     vertices = new GLfloat[l];
     length = l;
     memcpy(vertices, v, l * sizeof(GLfloat));
 }
 
-void VertexArray::delete_buffers()
+void VertexArray::delete_data()
 {
-    GLuint buffer_to_delete = vbo;
-    glDeleteBuffers(1, &buffer_to_delete);
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
 }
 
+void VertexArray::set_as_current()
+{
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+}
 
 GLuint VertexArray::upload(GLenum usage)
 {
