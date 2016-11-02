@@ -35,7 +35,7 @@ void VertexArray::delete_data()
     glDeleteVertexArrays(1, &vao);
 }
 
-void VertexArray::set_as_current()
+void VertexArray::bind()
 {
     glBindVertexArray(vao);
     glUseProgram(shader_program);
@@ -64,7 +64,7 @@ GLuint VertexArray::upload(GLenum usage)
 
 void VertexArray::set_layout(VertexAttribute* attrs, size_t len)
 {
-    set_as_current();
+    bind();
 
     int i;
     size_t stride = 0;

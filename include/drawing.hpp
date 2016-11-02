@@ -36,7 +36,7 @@ public:
     void delete_data();
 
     /// Bind this VertexArray's VBO/VAO.
-    void set_as_current();
+    void bind();
 
     /// Upload the vertex data of this VertexArray.
     GLuint upload(GLenum usage);
