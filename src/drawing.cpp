@@ -9,38 +9,84 @@
 
 namespace frag {
 
-VertexArray::VertexArray(GLfloat* v, size_t l)
+VertexArray::VertexArray(GLfloat* v, size_t l,  GLuint shaderprogram,
+                         GLuint* element_order, size_t order_len)
 {
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
+    shader_program = shaderprogram;
+
     vertices = new GLfloat[l];
     length = l;
     memcpy(vertices, v, l * sizeof(GLfloat));
+
+    if (element_order) {
+        order = new GLuint[order_len];
+        order_length = order_len;
+        memcpy(order, element_order, order_len * sizeof(GLuint));
+    }
 }
 
 void VertexArray::delete_data()
 {
     glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
     glDeleteVertexArrays(1, &vao);
 }
 
 void VertexArray::set_as_current()
 {
     glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glUseProgram(shader_program);
 }
 
 GLuint VertexArray::upload(GLenum usage)
 {
+    glBindVertexArray(vao);
+
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, length * sizeof(GLfloat), vertices, usage);
 
-    log(DEVELOPER, "Uploaded %d vertex data bytes to graphics card",
-        length * sizeof(GLfloat));
+    if (order) {
+        glGenBuffers(1, &ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, order_length * sizeof(GLuint),
+                     order, usage);
+    }
+
+    log(DEVELOPER, "Uploaded %d vertex data bytes, uploaded %d element array "
+        "bytes", length * sizeof(GLfloat), order_length * sizeof(GLuint));
 
     return vbo;
+}
+
+void VertexArray::set_layout(VertexAttribute* attrs, size_t len)
+{
+    set_as_current();
+
+    int i;
+    size_t stride = 0;
+    size_t offset = 0;
+    VertexAttribute va;
+
+    // Calculate "stride"
+    for (i = 0; i < len; i++) {
+        va = attrs[i];
+        stride += va.length_bytes;
+    }
+
+    for (i = 0; i < len; i++) {
+        va = attrs[i];
+
+        GLint attrib = glGetAttribLocation(shader_program, va.name.c_str());
+        glEnableVertexAttribArray(attrib);
+        glVertexAttribPointer(attrib, va.length_elements, va.type, GL_FALSE,
+                              stride, (void*)(offset));
+
+        offset += va.length_bytes;
+    }
 }
 
 GLuint create_shader(GLenum type, std::string source)
