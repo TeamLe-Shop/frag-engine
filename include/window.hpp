@@ -1,3 +1,5 @@
+/// @file
+
 #pragma once
 
 #include <stdint.h>
@@ -8,19 +10,21 @@
 
 namespace frag {
 
+/// Class for representing the game window.
 class Window {
 public:
     /// Creates a new Window object.
     ///
     /// title - Name of the window
+    ///
     /// width - Width of the window in pixels
+    ///
     /// height - Height of the window in pixels
+    ///
     /// gl - OpenGL version
     Window(std::string title, uint16_t width, uint16_t height,
            GLVersion gl);
     ~Window();
-    /// Initialise OpenGL
-    void initGL();
     /// Destroy the window.
     void destroyWindow();
     /// Clear the screen.

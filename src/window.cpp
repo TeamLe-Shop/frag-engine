@@ -42,12 +42,6 @@ Window::~Window()
     SDL_Quit();
 }
 
-void Window::initGL()
-{
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
 void Window::destroyWindow()
 {
     SDL_GL_DeleteContext(glcontext);

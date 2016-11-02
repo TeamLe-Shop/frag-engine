@@ -1,3 +1,6 @@
+/// @file
+/// @brief State
+
 #pragma once
 
 #include "window.hpp"
@@ -7,6 +10,10 @@ namespace frag {
 
 class Game;
 
+/// The functionality of states are to be defined by the user.
+///
+/// Render and input functions are called each game cycle if they are the active
+/// state.
 class State {
 public:
     State(Game game);
