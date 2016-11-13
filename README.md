@@ -6,8 +6,8 @@ Frag Engine is a 3D game engine written in C++. It uses OpenGL for rendering.
 Building
 --------
 
-Building this project requires CMake. Currently the only libraries used are
-SDL2 and OpenGL.
+Building this project requires CMake.
+Required libraries are SDL2, OpenGL, GLEW and GLM.
 
 After navigating to the root of this project, enter the following into your
 terminal:

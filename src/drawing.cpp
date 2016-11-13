@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include <fstream>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace frag {
 
@@ -122,7 +123,7 @@ GLuint create_shader_from_file(GLenum type, std::string file)
     return create_shader(type, contents);
 }
 
-GLuint create_shader_program(int shader_count, ...)
+GLuint create_shader_program(std::string colattr, int shader_count, ...)
 {
     int i;
     GLuint program = glCreateProgram();
@@ -138,9 +139,30 @@ GLuint create_shader_program(int shader_count, ...)
 
     va_end(args);
 
-    glBindFragDataLocation(program, 0, "outColor");
+    glBindFragDataLocation(program, 0, colattr.c_str());
     glLinkProgram(program);
     return program;
+}
+
+
+const void push_matrix(Matrix mat, GLint attr_ref)
+{
+    matrix_stack->push(mat);
+    glUniformMatrix4fv(attr_ref, 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+
+const Matrix pop_matrix(GLint attr_ref)
+{
+    matrix_stack->pop();
+    Matrix ret;
+    if (!matrix_stack->size()) {
+        ret = glm::mat4();
+    } else {
+        ret = matrix_stack->top();
+    }
+    glUniformMatrix4fv(attr_ref, 1, GL_FALSE, glm::value_ptr(ret));
+    return ret;
 }
 
 }

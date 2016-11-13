@@ -9,10 +9,12 @@ endif()
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(GLM REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include
                     ${SDL2_INCLUDE_DIR}
-                    ${GLEW_INCLUDE_DIR}/GL)
+                    ${GLEW_INCLUDE_DIR}/GL
+                    ${GLM_INCLUDE_DIR}/glm)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     include_directories(${OPENGL_INCLUDE_DIR}/OpenGL)

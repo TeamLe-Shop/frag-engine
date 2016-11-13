@@ -19,8 +19,6 @@ public:
 
 public:
     State* state = nullptr;
-
-private:
     Window* window;
 };
 

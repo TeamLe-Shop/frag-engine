@@ -7,7 +7,7 @@
 
 namespace frag {
 
-Window::Window(std::string title, uint16_t width, uint16_t height, GLVersion gl)
+Window::Window(std::string title, uint16_t w, uint16_t h, GLVersion gl)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING)) {
         log(SEVERE, "Failed to initialise SDL: %s", SDL_GetError());
@@ -18,6 +18,9 @@ Window::Window(std::string title, uint16_t width, uint16_t height, GLVersion gl)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl.major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl.minor);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+    width = w;
+    height = h;
 
 
     sdlwindow = SDL_CreateWindow(title.data(), SDL_WINDOWPOS_CENTERED,
